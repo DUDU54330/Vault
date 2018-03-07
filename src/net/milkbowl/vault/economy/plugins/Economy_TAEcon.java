@@ -27,6 +27,7 @@ import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.plugin.Plugin;
 
+import net.milkbowl.vault.TransactionSucsesssEvent;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
@@ -148,6 +149,8 @@ public class Economy_TAEcon extends AbstractEconomy {
 			if (economy.removeBalance(playerName, iamount)) {
 				rt = ResponseType.SUCCESS;
 				message = null;
+		        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+		        Bukkit.getServer().getPluginManager().callEvent(event);
 			} else {
 				rt = ResponseType.SUCCESS;
 				message = "ERROR";
@@ -169,6 +172,8 @@ public class Economy_TAEcon extends AbstractEconomy {
 		if (economy.addBalance(playerName, iamount)) {
 			rt = ResponseType.SUCCESS;
 			message = null;
+	        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+	        Bukkit.getServer().getPluginManager().callEvent(event);
 		} else {
 			rt = ResponseType.SUCCESS;
 			message = "ERROR";

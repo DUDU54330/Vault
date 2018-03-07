@@ -24,6 +24,7 @@ import me.mjolnir.mineconomy.exceptions.AccountNameConflictException;
 import me.mjolnir.mineconomy.exceptions.NoAccountException;
 import me.mjolnir.mineconomy.internal.MCCom;
 import me.mjolnir.mineconomy.internal.util.MCFormat;
+import net.milkbowl.vault.TransactionSucsesssEvent;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
@@ -146,6 +147,8 @@ public class Economy_MineConomy extends AbstractEconomy {
         if(balance >= amount) {
             double finalBalance = balance - amount;
             MCCom.setExternalBalance(playerName, finalBalance);
+            TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+            Bukkit.getServer().getPluginManager().callEvent(event);
             return new EconomyResponse(amount, finalBalance, ResponseType.SUCCESS, null);
         } else {
             return new EconomyResponse(0.0D, balance, ResponseType.FAILURE, "Insufficient funds");
@@ -167,6 +170,8 @@ public class Economy_MineConomy extends AbstractEconomy {
 
         balance += amount;
         MCCom.setExternalBalance(playerName, balance);
+        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+        Bukkit.getServer().getPluginManager().callEvent(event);
         return new EconomyResponse(amount, balance, ResponseType.SUCCESS, null);
 
     }

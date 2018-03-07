@@ -18,10 +18,6 @@ package net.milkbowl.vault.economy.plugins;
 import java.util.List;
 import java.util.logging.Logger;
 
-import net.milkbowl.vault.economy.AbstractEconomy;
-import net.milkbowl.vault.economy.EconomyResponse;
-import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
-
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -35,6 +31,11 @@ import com.greatmancode.craftconomy3.Common;
 import com.greatmancode.craftconomy3.account.Account;
 import com.greatmancode.craftconomy3.groups.WorldGroupsManager;
 import com.greatmancode.craftconomy3.tools.interfaces.BukkitLoader;
+
+import net.milkbowl.vault.TransactionSucsesssEvent;
+import net.milkbowl.vault.economy.AbstractEconomy;
+import net.milkbowl.vault.economy.EconomyResponse;
+import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
 
 public class Economy_Craftconomy3 extends AbstractEconomy {
 	private static final Logger log = Logger.getLogger("Minecraft");
@@ -293,6 +294,8 @@ public class Economy_Craftconomy3 extends AbstractEconomy {
 		Account account = Common.getInstance().getAccountManager().getAccount(playerName, false);
 		if (account.hasEnough(amount, worldName, Common.getInstance().getCurrencyManager().getDefaultCurrency().getName())) {
 			balance = account.withdraw(amount, worldName, Common.getInstance().getCurrencyManager().getDefaultCurrency().getName(), Cause.VAULT, null);
+	        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+	        Bukkit.getServer().getPluginManager().callEvent(event);
 			return new EconomyResponse(amount, balance, ResponseType.SUCCESS, "");
 		} else {
 			return new EconomyResponse(0, getBalance(playerName, worldName), ResponseType.FAILURE, "Insufficient funds");
@@ -308,6 +311,8 @@ public class Economy_Craftconomy3 extends AbstractEconomy {
 		Account account = Common.getInstance().getAccountManager().getAccount(playerName, false);
 
 		double balance = account.deposit(amount, worldName, Common.getInstance().getCurrencyManager().getDefaultCurrency().getName(), Cause.VAULT, null);
+        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+        Bukkit.getServer().getPluginManager().callEvent(event);
 		return new EconomyResponse(amount, balance, ResponseType.SUCCESS, null);
 	}
 

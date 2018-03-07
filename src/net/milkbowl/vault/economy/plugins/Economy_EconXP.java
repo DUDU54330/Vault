@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import net.milkbowl.vault.TransactionSucsesssEvent;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
@@ -153,7 +154,8 @@ public class Economy_EconXP extends AbstractEconomy {
         econ.removeExp(player, (int) amount);
 
         double finalBalance = econ.getExp(player);
-
+        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+        Bukkit.getServer().getPluginManager().callEvent(event);
         return new EconomyResponse(amount, finalBalance, ResponseType.SUCCESS, null);
     }
 
@@ -174,7 +176,8 @@ public class Economy_EconXP extends AbstractEconomy {
 
         econ.addExp(player, (int) amount );
         balance = econ.getExp(player);
-
+        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+        Bukkit.getServer().getPluginManager().callEvent(event);
         return new EconomyResponse(amount, balance, ResponseType.SUCCESS, null);
     }
 

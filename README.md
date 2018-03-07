@@ -80,7 +80,6 @@ Github and we'll get to it at our convenience.
    - AEco
    - BOSEconomy 6 (http://forums.bukkit.org/threads/19025/)
    - BOSEconomy 7
-   - CommandsEX Economy (http://dev.bukkit.org/server-mods/commandsex/)
    - CraftConomy2 (http://dev.bukkit.org/server-mods/craftconomy/)
    - CraftConomy3 (http://dev.bukkit.org/server-mods/craftconomy/)
    - CurrencyCore (http://dev.bukkit.org/server-mods/currency/)
@@ -106,7 +105,6 @@ Github and we'll get to it at our convenience.
 * Permissions
    - bPermissions
    - bPermissions 2 (http://dev.bukkit.org/server-mods/bpermissions/)
-   - DroxPerms
    - Group Manager (Essentials) (http://forums.bukkit.org/threads/15312/)
    - OverPermissions (http://dev.bukkit.org/bukkit-plugins/overpermissions/)
    - Permissions 3 (http://forums.bukkit.org/threads/18430/)

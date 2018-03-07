@@ -21,6 +21,7 @@ import is.currency.syst.AccountContext;
 import java.util.List;
 import java.util.logging.Logger;
 
+import net.milkbowl.vault.TransactionSucsesssEvent;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
@@ -143,6 +144,8 @@ public class Economy_CurrencyCore extends AbstractEconomy {
             return new EconomyResponse(0.0, account.getBalance(), ResponseType.FAILURE, "Insufficient funds");  
         } else {
             account.subtractBalance(amount);
+	        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+	        Bukkit.getServer().getPluginManager().callEvent(event);
             return new EconomyResponse(amount, account.getBalance(), ResponseType.SUCCESS, "");
         }
     }
@@ -158,6 +161,8 @@ public class Economy_CurrencyCore extends AbstractEconomy {
             return new EconomyResponse(0.0, 0.0, ResponseType.FAILURE, "That account does not exist");
         }   
         account.addBalance(amount);
+        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+        Bukkit.getServer().getPluginManager().callEvent(event);
         return new EconomyResponse(amount, account.getBalance(), ResponseType.SUCCESS, "");
     }
 

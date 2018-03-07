@@ -18,10 +18,6 @@ package net.milkbowl.vault.economy.plugins;
 import java.util.List;
 import java.util.logging.Logger;
 
-import net.milkbowl.vault.economy.AbstractEconomy;
-import net.milkbowl.vault.economy.EconomyResponse;
-import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
-
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -31,6 +27,10 @@ import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.plugin.Plugin;
 
 import cosine.boseconomy.BOSEconomy;
+import net.milkbowl.vault.TransactionSucsesssEvent;
+import net.milkbowl.vault.economy.AbstractEconomy;
+import net.milkbowl.vault.economy.EconomyResponse;
+import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
 
 public class Economy_BOSE7 extends AbstractEconomy {
     private static final Logger log = Logger.getLogger("Minecraft");
@@ -90,6 +90,8 @@ public class Economy_BOSE7 extends AbstractEconomy {
         double balance = economy.getPlayerMoneyDouble(playerName);
         if (economy.setPlayerMoney(playerName, balance - amount, false)) {
             balance = economy.getPlayerMoneyDouble(playerName);
+            TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+            Bukkit.getServer().getPluginManager().callEvent(event);
             return new EconomyResponse(amount, balance, ResponseType.SUCCESS, "");
         } else {
               return new EconomyResponse(0, balance, ResponseType.FAILURE, "Error withdrawing funds");
@@ -104,6 +106,8 @@ public class Economy_BOSE7 extends AbstractEconomy {
         double balance = economy.getPlayerMoneyDouble(playerName);
         if (economy.setPlayerMoney(playerName, balance + amount, false)) {
             balance = economy.getPlayerMoneyDouble(playerName);
+            TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+            Bukkit.getServer().getPluginManager().callEvent(event);
             return new EconomyResponse(amount, balance, ResponseType.SUCCESS, "");
         } else {
             return new EconomyResponse(0, balance, ResponseType.FAILURE, "Error depositing funds");

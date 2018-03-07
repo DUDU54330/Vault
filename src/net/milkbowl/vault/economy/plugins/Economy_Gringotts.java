@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import net.milkbowl.vault.TransactionSucsesssEvent;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
@@ -161,6 +162,8 @@ public class Economy_Gringotts extends AbstractEconomy {
 
         if(account.balance() >= amount && account.remove(amount)) {
             //We has mulah!
+	        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+	        Bukkit.getServer().getPluginManager().callEvent(event);
             return new EconomyResponse(amount, account.balance(), ResponseType.SUCCESS, null);
         } else {
             //Not enough money to withdraw this much.
@@ -185,6 +188,8 @@ public class Economy_Gringotts extends AbstractEconomy {
         if (account.add(amount)) {   
             return new EconomyResponse( amount, account.balance(), ResponseType.SUCCESS, null);
         } else {
+	        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+	        Bukkit.getServer().getPluginManager().callEvent(event);
             return new EconomyResponse( 0, account.balance(), ResponseType.FAILURE, "Not enough capacity to store that amount!");
         }
     }

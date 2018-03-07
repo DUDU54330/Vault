@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.plugin.Plugin;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -28,6 +29,7 @@ import org.bukkit.event.server.PluginEnableEvent;
 import com.github.omwah.SDFEconomy.SDFEconomy;
 import com.github.omwah.SDFEconomy.SDFEconomyAPI;
 
+import net.milkbowl.vault.TransactionSucsesssEvent;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
 
@@ -139,11 +141,15 @@ public class Economy_SDFEconomy extends AbstractEconomy {
 
     @Override
     public EconomyResponse withdrawPlayer(String playerName, double amount) {
+        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+        Bukkit.getServer().getPluginManager().callEvent(event);
         return api.withdrawPlayer(playerName, amount);
     }
 
     @Override
     public EconomyResponse depositPlayer(String playerName, double amount) {
+        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+        Bukkit.getServer().getPluginManager().callEvent(event);
         return api.depositPlayer(playerName, amount);
     }
 

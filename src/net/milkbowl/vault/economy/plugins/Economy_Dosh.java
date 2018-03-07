@@ -17,11 +17,13 @@ package net.milkbowl.vault.economy.plugins;
 
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
 import com.gravypod.Dosh.Dosh;
 import com.gravypod.Dosh.MoneyUtils;
 
+import net.milkbowl.vault.TransactionSucsesssEvent;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
 
@@ -98,6 +100,8 @@ public class Economy_Dosh extends AbstractEconomy {
     public EconomyResponse withdrawPlayer(String playerName, double amount) {
 
         if (DoshAPIHandler.subtractMoney(playerName, amount)) {
+	        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+	        Bukkit.getServer().getPluginManager().callEvent(event);
             return new EconomyResponse(amount, getBalance(playerName), EconomyResponse.ResponseType.SUCCESS, "Worked!");
         }
 
@@ -108,6 +112,8 @@ public class Economy_Dosh extends AbstractEconomy {
     @Override
     public EconomyResponse depositPlayer(String playerName, double amount) {
         DoshAPIHandler.addUserBal(playerName, amount);
+        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+        Bukkit.getServer().getPluginManager().callEvent(event);
         return new EconomyResponse(amount, getBalance(playerName), EconomyResponse.ResponseType.SUCCESS, "It worked!");
     }
 

@@ -18,6 +18,7 @@ package net.milkbowl.vault.economy.plugins;
 import java.util.List;
 import java.util.logging.Logger;
 
+import net.milkbowl.vault.TransactionSucsesssEvent;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
@@ -139,8 +140,11 @@ public class Economy_iConomy6 extends AbstractEconomy {
         }
 
         Holdings holdings = accounts.get(playerName).getHoldings();
+        
         if (holdings.hasEnough(amount)) {
             holdings.subtract(amount);
+            TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+            Bukkit.getServer().getPluginManager().callEvent(event);
             return new EconomyResponse(amount, holdings.getBalance(), ResponseType.SUCCESS, null);
         } else {
             return new EconomyResponse(0, holdings.getBalance(), ResponseType.FAILURE, "Insufficient funds");
@@ -155,6 +159,8 @@ public class Economy_iConomy6 extends AbstractEconomy {
 
         Holdings holdings = accounts.get(playerName).getHoldings();
         holdings.add(amount);
+        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+        Bukkit.getServer().getPluginManager().callEvent(event);
         return new EconomyResponse(amount, holdings.getBalance(), ResponseType.SUCCESS, null);
     }
 

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import net.milkbowl.vault.TransactionSucsesssEvent;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
@@ -105,6 +106,8 @@ public class Economy_Essentials extends AbstractEconomy {
         try {
             com.earth2me.essentials.api.Economy.subtract(playerName, amount);
             balance = com.earth2me.essentials.api.Economy.getMoney(playerName);
+	        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+	        Bukkit.getServer().getPluginManager().callEvent(event);
             type = EconomyResponse.ResponseType.SUCCESS;
         } catch (UserDoesNotExistException e) {
             if (createPlayerAccount(playerName)) {
@@ -145,6 +148,8 @@ public class Economy_Essentials extends AbstractEconomy {
         try {
             com.earth2me.essentials.api.Economy.add(playerName, amount);
             balance = com.earth2me.essentials.api.Economy.getMoney(playerName);
+	        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+	        Bukkit.getServer().getPluginManager().callEvent(event);
             type = EconomyResponse.ResponseType.SUCCESS;
         } catch (UserDoesNotExistException e) {
             if (createPlayerAccount(playerName)) {

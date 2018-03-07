@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import me.ethan.eWallet.ECO;
+import net.milkbowl.vault.TransactionSucsesssEvent;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
@@ -133,6 +134,8 @@ public class Economy_eWallet extends AbstractEconomy {
         } else if (balance >= amount) {
             double finalBalance = balance - amount;
             econ.takeMoney(playerName, (int) amount);
+	        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+	        Bukkit.getServer().getPluginManager().callEvent(event);
             return new EconomyResponse(amount, finalBalance, ResponseType.SUCCESS, null);
         } else {
             return new EconomyResponse(0, balance, ResponseType.FAILURE, "Insufficient funds");
@@ -148,6 +151,8 @@ public class Economy_eWallet extends AbstractEconomy {
         } else {
             balance += amount;
             econ.giveMoney(playerName, (int) amount);
+	        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+	        Bukkit.getServer().getPluginManager().callEvent(event);
             return new EconomyResponse(amount, balance, ResponseType.SUCCESS, null);
         }
     }

@@ -66,12 +66,16 @@ Vault currently supports the following: Permissions 3, PEX, GroupManager, bPerms
 			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
 		</repository>
 		<repository>
-			<id>bukkit-repo</id>
-			<url>http://repo.bukkit.org/content/groups/public/</url>
+			<id>spigot-repo2</id>
+			<url>https://hub.spigotmc.org/nexus/content/repositories/public/</url>
 		</repository>
 		<repository>
 			<id>escapecraft-repo</id>
 			<url>http://dev.escapecraft.com/maven</url>
+		</repository>
+		<repository>
+			<id>vault-repo</id>
+			<url>http://nexus.hc.to/content/repositories/pub_releases</url>
 		</repository>
 	</repositories>
 
@@ -93,12 +97,6 @@ Vault currently supports the following: Permissions 3, PEX, GroupManager, bPerms
 			<optional>true</optional>
 			<scope>system</scope>
 			<systemPath>${project.basedir}/lib/MiConomy.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>de.hydrox.bukkit</groupId>
-			<artifactId>DroxPerms</artifactId>
-			<version>0.5.0</version>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>me.coniin.plugins.minefaconomy</groupId>

@@ -19,6 +19,7 @@ package net.milkbowl.vault.economy.plugins;
 import java.util.List;
 import java.util.logging.Logger;
 
+import net.milkbowl.vault.TransactionSucsesssEvent;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
@@ -176,7 +177,8 @@ public class Economy_XPBank extends AbstractEconomy {
         }
 
         account.modifyBalance(-value);
-
+        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+        Bukkit.getServer().getPluginManager().callEvent(event);
         return new EconomyResponse(value, balance - value, ResponseType.SUCCESS, null);
     }
 
@@ -198,7 +200,8 @@ public class Economy_XPBank extends AbstractEconomy {
         }
 
         account.addTaxableIncome(value);
-
+        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+        Bukkit.getServer().getPluginManager().callEvent(event);
         return new EconomyResponse(value, balance + value, ResponseType.SUCCESS, null);
     }
 

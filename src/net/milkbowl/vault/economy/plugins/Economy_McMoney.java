@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import net.milkbowl.vault.TransactionSucsesssEvent;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
@@ -78,6 +79,8 @@ public class Economy_McMoney extends AbstractEconomy {
             return new EconomyResponse(0, balance, ResponseType.FAILURE, "Insufficient funds");
         }
         economy.removeMoney(playerName, amount);
+        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+        Bukkit.getServer().getPluginManager().callEvent(event);
         return new EconomyResponse(amount, economy.getMoney(playerName), ResponseType.SUCCESS, "");
     }
 
@@ -88,6 +91,8 @@ public class Economy_McMoney extends AbstractEconomy {
             return new EconomyResponse(0, balance, ResponseType.FAILURE, "Cannot deposit negative funds");
         }
         economy.addMoney(playerName, amount);
+        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+        Bukkit.getServer().getPluginManager().callEvent(event);
         return new EconomyResponse(amount, economy.getMoney(playerName), ResponseType.SUCCESS, "");
     }
 

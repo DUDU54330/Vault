@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 
 import me.ashtheking.currency.Currency;
 import me.ashtheking.currency.CurrencyList;
+import net.milkbowl.vault.TransactionSucsesssEvent;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
@@ -105,7 +106,8 @@ public class Economy_MultiCurrency extends AbstractEconomy {
         if (CurrencyList.subtract(playerName, amount)) {
             type = EconomyResponse.ResponseType.SUCCESS;
             balance = CurrencyList.getValue((String) CurrencyList.maxCurrency(playerName)[0], playerName);
-
+            TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+            Bukkit.getServer().getPluginManager().callEvent(event);
             return new EconomyResponse(amount, balance, type, errorMessage);
         } else {
             errorMessage = "Error withdrawing funds";
@@ -135,7 +137,8 @@ public class Economy_MultiCurrency extends AbstractEconomy {
         if (CurrencyList.add(playerName, amount)) {
             type = EconomyResponse.ResponseType.SUCCESS;
             balance = CurrencyList.getValue((String) CurrencyList.maxCurrency(playerName)[0], playerName);
-
+            TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+            Bukkit.getServer().getPluginManager().callEvent(event);
             return new EconomyResponse(amount, balance, type, errorMessage);
         } else {
             errorMessage = "Error withdrawing funds";

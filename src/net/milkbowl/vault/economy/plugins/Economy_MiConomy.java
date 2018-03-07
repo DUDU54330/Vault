@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import net.milkbowl.vault.TransactionSucsesssEvent;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
 
@@ -169,7 +170,8 @@ public class Economy_MiConomy extends AbstractEconomy {
         } else {
             if(economy.removeAccountBalance(player, amount, world)) {
                 balance = economy.getAccountBalance(player, world);
-                
+                TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+                Bukkit.getServer().getPluginManager().callEvent(event);
                 return new EconomyResponse(amount, balance, EconomyResponse.ResponseType.SUCCESS, "");
             } else {
                 return new EconomyResponse(0, balance, EconomyResponse.ResponseType.FAILURE, "Failed to remove funds from account");
@@ -193,7 +195,8 @@ public class Economy_MiConomy extends AbstractEconomy {
         
         if(economy.addAccountBalance(player, amount, world)) {
             balance = economy.getAccountBalance(player, world);
-
+            TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+            Bukkit.getServer().getPluginManager().callEvent(event);
             return new EconomyResponse(amount, balance, EconomyResponse.ResponseType.SUCCESS, "");
         } else {
             return new EconomyResponse(0, balance, EconomyResponse.ResponseType.FAILURE, "Failed to add funds to account");

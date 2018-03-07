@@ -18,6 +18,7 @@ package net.milkbowl.vault.economy.plugins;
 import java.util.List;
 import java.util.logging.Logger;
 
+import net.milkbowl.vault.TransactionSucsesssEvent;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
@@ -121,6 +122,8 @@ public class Economy_GoldIsMoney2 extends AbstractEconomy {
 	    if (!GoldIsMoney.withdrawPlayer(playerName, amount)) {
 	        return new EconomyResponse(0, GoldIsMoney.getBalance(playerName), ResponseType.FAILURE, "Unable to withdraw funds!");
 	    }
+        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+        Bukkit.getServer().getPluginManager().callEvent(event);
         return new EconomyResponse(amount, GoldIsMoney.getBalance(playerName), ResponseType.SUCCESS, null);
 	}
 	
@@ -135,6 +138,8 @@ public class Economy_GoldIsMoney2 extends AbstractEconomy {
 	    if (!GoldIsMoney.depositPlayer(playerName, amount)) {
 	        return new EconomyResponse(0, GoldIsMoney.getBalance(playerName), ResponseType.FAILURE, "Unable to deposit funds!");
 	    }
+        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+        Bukkit.getServer().getPluginManager().callEvent(event);
         return new EconomyResponse(amount, GoldIsMoney.getBalance(playerName), ResponseType.SUCCESS, null);
 	}
 	
@@ -199,6 +204,8 @@ public class Economy_GoldIsMoney2 extends AbstractEconomy {
     	if (!GoldIsMoney.bankWithdraw(name, amount)) {
             return new EconomyResponse(0, GoldIsMoney.bankBalance(name), ResponseType.FAILURE, "Unable to withdraw from that bank account!");
         }
+        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(name));
+        Bukkit.getServer().getPluginManager().callEvent(event);
         return new EconomyResponse(amount, GoldIsMoney.bankBalance(name), ResponseType.SUCCESS, "");
 	}
 	
@@ -213,6 +220,8 @@ public class Economy_GoldIsMoney2 extends AbstractEconomy {
     	if (!GoldIsMoney.bankDeposit(name, amount)) {
             return new EconomyResponse(0, GoldIsMoney.bankBalance(name), ResponseType.FAILURE, "Unable to deposit to that bank account!");
         }
+        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(name));
+        Bukkit.getServer().getPluginManager().callEvent(event);
         return new EconomyResponse(amount, GoldIsMoney.bankBalance(name), ResponseType.SUCCESS, "");
 	}
 	

@@ -12,6 +12,7 @@ import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.plugin.Plugin;
 
 import me.coniin.plugins.minefaconomy.Minefaconomy;
+import net.milkbowl.vault.TransactionSucsesssEvent;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
 
@@ -132,23 +133,31 @@ public class Economy_Minefaconomy extends AbstractEconomy {
 
 	@Override
 	public EconomyResponse withdrawPlayer(String playerName, double amount) {
+        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+        Bukkit.getServer().getPluginManager().callEvent(event);
 		return Minefaconomy.vaultLayer.withdrawPlayer(playerName, amount);
 	}
 
 	@Override
 	public EconomyResponse withdrawPlayer(String playerName, String worldName,
 			double amount) {
+        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+        Bukkit.getServer().getPluginManager().callEvent(event);
 		return Minefaconomy.vaultLayer.withdrawPlayer(playerName, amount);
 	}
 
 	@Override
 	public EconomyResponse depositPlayer(String playerName, double amount) {
+        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+        Bukkit.getServer().getPluginManager().callEvent(event);
 		return Minefaconomy.vaultLayer.depositPlayer(playerName, amount);
 	}
 
 	@Override
 	public EconomyResponse depositPlayer(String playerName, String worldName,
 			double amount) {
+        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+        Bukkit.getServer().getPluginManager().callEvent(event);
 		return Minefaconomy.vaultLayer.depositPlayer(playerName, amount);
 	}
 

@@ -27,6 +27,7 @@ import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.plugin.Plugin;
 
 import me.igwb.GoldenChest.GoldenChestEconomy;
+import net.milkbowl.vault.TransactionSucsesssEvent;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
@@ -161,6 +162,8 @@ public class Economy_GoldenChestEconomy extends AbstractEconomy {
     
         if (has(playerName, amount)) {
             economy.getVaultConnector().withdrawPlayer(playerName, amount);
+	        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+	        Bukkit.getServer().getPluginManager().callEvent(event);
             return new EconomyResponse(amount, getBalance(playerName), ResponseType.SUCCESS, null);
         } else {
             return new EconomyResponse(0, getBalance(playerName), ResponseType.FAILURE, "Insufficient funds");
@@ -180,6 +183,8 @@ public class Economy_GoldenChestEconomy extends AbstractEconomy {
         }
         
         economy.getVaultConnector().depositPlayer(playerName, amount);
+        TransactionSucsesssEvent event = new TransactionSucsesssEvent(Bukkit.getOfflinePlayer(playerName));
+        Bukkit.getServer().getPluginManager().callEvent(event);
         return new EconomyResponse(amount, getBalance(playerName), EconomyResponse.ResponseType.SUCCESS, null);
     }
 
